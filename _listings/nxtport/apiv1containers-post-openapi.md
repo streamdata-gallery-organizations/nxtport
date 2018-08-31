@@ -3,8 +3,11 @@ swagger: "2.0"
 x-collection-name: NxtPort
 x-complete: 0
 info:
-  title: NxtPort T-mining Secure Container Release API Get container events
-  description: Get the list of Events related to a container
+  title: NxtPort T-mining Secure Container Release API Create a new Container
+  description: |-
+    Create a new container.
+    If all goes well, a 200 status code is returned.
+    If the create fails, a 500 status code is returned.
   contact:
     name: T-Mining API support
     url: http://support.t-mining.be/
@@ -270,25 +273,6 @@ paths:
       tags:
       - New
       - Container
-  /api/v1/containers/{id}/events:
-    get:
-      summary: Get container events
-      description: Get the list of Events related to a container
-      operationId: getApiV1ContainersEvents
-      x-api-path-slug: apiv1containersidevents-get
-      parameters:
-      - in: query
-        name: api_token
-        description: authentication token of user making the request
-      - in: path
-        name: id
-        description: id of the Container
-      responses:
-        200:
-          description: OK
-      tags:
-      - Container
-      - Events
 x-streamrank:
   polling_total_time_average: 0
   polling_size_download_average: 0

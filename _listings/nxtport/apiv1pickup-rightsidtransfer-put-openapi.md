@@ -3,8 +3,8 @@ swagger: "2.0"
 x-collection-name: NxtPort
 x-complete: 0
 info:
-  title: NxtPort T-mining Secure Container Release API Get container events
-  description: Get the list of Events related to a container
+  title: NxtPort T-mining Secure Container Release API Transfer
+  description: Transfer the PickupRight to another Organization (a subcontractor).
   contact:
     name: T-Mining API support
     url: http://support.t-mining.be/
@@ -289,6 +289,88 @@ paths:
       tags:
       - Container
       - Events
+  /api/v1/containers/{id}/release:
+    put:
+      summary: Release
+      description: Release a container to an organization.
+      operationId: putApiV1ContainersRelease
+      x-api-path-slug: apiv1containersidrelease-put
+      parameters:
+      - in: query
+        name: api_token
+        description: authentication token of user making the request
+      - in: body
+        name: body
+        schema:
+          $ref: '#/definitions/holder'
+      - in: path
+        name: id
+        description: id of the Container
+      responses:
+        200:
+          description: OK
+      tags:
+      - Release
+  /api/v1/pickup_rights/:
+    get:
+      summary: List PickupRights
+      description: Get all PickupRights that are assigned / transferred to the users's
+        Organization.
+      operationId: getApiV1PickupRights
+      x-api-path-slug: apiv1pickup-rights-get
+      parameters:
+      - in: query
+        name: api_token
+        description: authentication token of user making the request
+      responses:
+        200:
+          description: OK
+      tags:
+      - List
+      - PickupRights
+  /api/v1/pickup_rights/{id}/request:
+    get:
+      summary: Request
+      description: |-
+        When a driver needs to pickup a container, he should send a request to get
+        authorization for the pickup. This will return a **temporary pincode**.
+        If no authorization is given, http status 403 is returned
+      operationId: getApiV1PickupRightsRequest
+      x-api-path-slug: apiv1pickup-rightsidrequest-get
+      parameters:
+      - in: query
+        name: api_token
+        description: authentication token of user making the request
+      - in: path
+        name: id
+        description: id of the PickupRight
+      responses:
+        200:
+          description: OK
+      tags:
+      - Request
+  /api/v1/pickup_rights/{id}/transfer:
+    put:
+      summary: Transfer
+      description: Transfer the PickupRight to another Organization (a subcontractor).
+      operationId: putApiV1PickupRightsTransfer
+      x-api-path-slug: apiv1pickup-rightsidtransfer-put
+      parameters:
+      - in: query
+        name: api_token
+        description: authentication token of user making the request
+      - in: body
+        name: body
+        schema:
+          $ref: '#/definitions/holder'
+      - in: path
+        name: id
+        description: id of the PickupRight (as reported by List PickupRights)
+      responses:
+        200:
+          description: OK
+      tags:
+      - Transfer
 x-streamrank:
   polling_total_time_average: 0
   polling_size_download_average: 0
